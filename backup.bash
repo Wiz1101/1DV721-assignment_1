@@ -10,7 +10,7 @@ fi
 dir=$1
 
 # The backup file path
-backup_file="/tmp/backup_$(date +%Y-%m-%d).tar.gz"
+backup="/tmp/backup_$(date +%Y-%m-%d).tar.gz"
 
 
 
@@ -21,13 +21,14 @@ if [ ! -d "$dir" ]; then
 fi
 
 # check if a Backup file exists
-if [ -f "$backup_file" ]; then
-  echo "Error: Backup file $backup_file already exists"
+if [ -f "$backup" ]; then
+  echo "Error: Backup file $backup already exists"
   exit 1
 fi
 
+#create a zip file
+tar -czf "$backup" "$dir" 
 start=$(date +%s)
-tar -czf "$backup_file" "$dir"
 end=$(date +%s)
 
 echo "Backup successfully created!"
