@@ -12,8 +12,6 @@ dir=$1
 # The backup file path
 backup="/tmp/backup_$(date +%Y-%m-%d).tar.gz"
 
-
-
 # check if a directory exists
 if [ ! -d "$dir" ]; then
   echo "Error: Directory $dir does not exist"
