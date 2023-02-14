@@ -88,6 +88,21 @@ function app-moose
 # Process options
 #
 while (( $# ))
+# To detect the OS if jq command is not installed
+os=$(uname)
+
+if [[ "$os" == "Linux" ]]; then
+    if ! command -v jq &> /dev/null; then
+        apt-get install jq
+    fi  
+elif [[ "$os" == "Darwin" ]]; then
+    if ! command -v jq &> /dev/null; then
+        brew install jq
+    fi
+else
+    echo "Unknown operating system: $os"
+fi
+
 do
     case "$1" in
 
