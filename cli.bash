@@ -14,8 +14,6 @@ SCRIPT=$( basename "$0" )
 # Current version
 VERSION="1.0.0"
 
-
-
 #
 # Message to display for usage and help.
 #
@@ -38,8 +36,6 @@ function usage
     printf "%s\\n" "${txt[@]}"
 }
 
-
-
 #
 # Message to display when bad usage.
 #
@@ -56,8 +52,6 @@ function badUsage
     printf "%s\\n" "${txt[@]}"
 }
 
-
-
 #
 # Message to display for version.
 #
@@ -70,50 +64,24 @@ function version
     printf "%s\\n" "${txt[@]}"
 }
 
-
-
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function that prints daily quote.
 #
-function app-command1
+function app-milk
 {
-    echo "This is output from command1."
+    # cowsay -f milk.cow $(ls /usr/share/cowsay/cows/ | shuf -n1) "$(shuf -n1 /path/to/quotesfile)"
+    cowsay -f milk.cow hello
 }
 
-
-
 #
-# Function for taking care of specific command. Name the function as the
-# command is named.
+# Function that uses online quote service 
+# to do get a daily quote.
 #
-function app-command2
+function app-moose
 {
-    echo "This is output from command2."
-    echo "Command 2 takes additional arguments which currently are:"
-    echo " Number of arguments = '$#'"
-    echo " List of arguments = '$*'"
+    quote=$(curl -s "https://api.quotable.io/random" | jq '.content' | sed 's/^"\(.*\)"$/\1/')
+    cowsay -f moose.cow $quote
 }
-
-
-
-#
-# Function for taking care of specific command. Name the function as the
-# command is named.
-#
-function app-calendar
-{
-    local events="$1"
-
-    echo "This is output from command3, showing the current calender."
-    cal -3
-
-    if [ "$events" = "events" ]; then
-        echo
-        calendar
-    fi
-}
-
 
 
 #
@@ -133,9 +101,7 @@ do
             exit 0
         ;;
 
-        command1         \
-        | command2       \
-        | calendar)
+        milk | moose)
             command=$1
             shift
             app-"$command" "$*"
