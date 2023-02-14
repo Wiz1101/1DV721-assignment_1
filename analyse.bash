@@ -47,7 +47,7 @@ if wget "$1" -q -O resource.bin; then
     open -a Safari resource.txt
 
   else
-    # Analyze the binary file
+    # Analyze the binary file ----------------------------------------
 
     # Count the number of bytes in the file
     bytes=$(wc -c < resource.bin)
@@ -60,14 +60,18 @@ if wget "$1" -q -O resource.bin; then
     # Print the 10-ish last bytes of the file in printable representation
     echo "Last 10-ish bytes of the file in printable representation: "
     hexdump -C -s -10 resource.bin
-  
-    mv resource.bin resource.txt
+
+
+    xxd -c 1 -p resource.bin > resource.txt
+
+    open -a Safari resource.txt
   fi
 
-
-  # Remove temp file
+  # Remove temp files
   sleep 5
+  rm -rf resource.bin
   rm -rf resource.txt
+  rm -rf resource.html
 else
     echo "[ERROR]: Please provide a valid URL"
     exit 1
