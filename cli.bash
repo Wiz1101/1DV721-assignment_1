@@ -69,8 +69,8 @@ function version
 #
 function app-milk
 {
-    # cowsay -f milk.cow $(ls /usr/share/cowsay/cows/ | shuf -n1) "$(shuf -n1 /path/to/quotesfile)"
-    cowsay -f milk.cow hello
+    quote=$(fortune)
+    cowsay -f milk.cow $quote
 }
 
 #
@@ -93,15 +93,30 @@ os=$(uname)
 
 if [[ "$os" == "Linux" ]]; then
     if ! command -v jq &> /dev/null; then
-        apt-get install jq
-    fi  
+        apt-get install jq -y
+    fi 
+    if ! command -v cowsay &> /dev/null; then
+        apt install cowsay -y
+    fi 
+    if ! command -v fortune &> /dev/null; then
+        apt install fortune-mod -y
+    fi 
 elif [[ "$os" == "Darwin" ]]; then
     if ! command -v jq &> /dev/null; then
         brew install jq
     fi
+    if ! command -v cowsay &> /dev/null; then
+        brew install cowsay
+    fi 
+    if ! command -v fortune &> /dev/null; then
+        brew install fortune
+    fi
 else
     echo "Unknown operating system: $os"
 fi
+
+
+
 
 do
     case "$1" in
