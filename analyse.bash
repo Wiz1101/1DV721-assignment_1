@@ -6,6 +6,8 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
+wget -O pic.png $1 
+
 # Download the resource
 if wget "$1" -q -O resource.bin; then
     echo "-------------- STARTING TO ANALYSE..."
@@ -44,7 +46,7 @@ if wget "$1" -q -O resource.bin; then
     mv resource.bin resource.txt
 
     #Open the local downloaded file in your favorite web browser
-    open -a Safari resource.txt
+    open -a 'google chrome' resource.txt
 
   else
     # Analyze the binary file ----------------------------------------
@@ -61,10 +63,11 @@ if wget "$1" -q -O resource.bin; then
     echo "Last 10-ish bytes of the file in printable representation: "
     hexdump -C -s -10 resource.bin
 
+    open -a 'google chrome' pic.png 
+    # Remove temp files
+    sleep 5
+    rm -rf pic.png
 
-    xxd -c 1 -p resource.bin > resource.txt
-
-    open -a Safari resource.txt
   fi
 
   # Remove temp files
