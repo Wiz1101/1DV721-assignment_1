@@ -1,2 +1,2 @@
-# 1DV721-assignment_1
+# 1DV721-Assignment_1
 Shell scripting with Bash
