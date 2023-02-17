@@ -6,7 +6,7 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
-wget -O pic.png $1 
+wget -O pic.png "$1"
 
 # Download the resource
 if wget "$1" -q -O resource.bin; then
